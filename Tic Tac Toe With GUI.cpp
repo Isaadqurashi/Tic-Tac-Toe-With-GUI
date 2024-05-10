@@ -143,6 +143,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+<<<<<<<<< Temporary merge branch 1
     case WM_GETMINMAXINFO:
     {
         MINMAXINFO* pMinMax = (MINMAXINFO*)lParam;
@@ -152,6 +153,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     }
     break;
+=========
+>>>>>>>>> Temporary merge branch 2
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
