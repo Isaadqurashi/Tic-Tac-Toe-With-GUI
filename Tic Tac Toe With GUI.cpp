@@ -75,7 +75,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hInstance      = hInstance;
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_TICTACTOEWITHGUI));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
+   //wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
+    wcex.hbrBackground = (HBRUSH)(GetStockObject(GRAY_BRUSH));
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_TICTACTOEWITHGUI);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
@@ -121,7 +122,25 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - post a quit message and return
 //
 //
-const int CELL_SIZE = 100; //gloabl variable for our game
+const int CELL_SIZE = 100; //global variable for our game
+bool GetGameBoardRect(HWND hwnd, RECT* pRect)
+{
+    RECT rc; // rectangle structure
+    if (GetClientRect(hwnd, &rc))
+    {
+        int width = rc.right - rc.left;
+        int height = rc.bottom - rc.top;
+
+        pRect->left = (width - CELL_SIZE * 3) / 2;
+        pRect->top = (height - CELL_SIZE * 3) / 2;
+
+        pRect->right = pRect->left + CELL_SIZE * 3;
+        pRect->bottom = pRect->top + CELL_SIZE * 3;
+        return TRUE;
+    }
+    SetRectEmpty(pRect);
+    return FALSE;
+}
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -157,18 +176,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             RECT rc; // rectangle structure
+
+            bool GetGameBoardRect(HWND hwnd, RECT * pRect);
+
             if (GetClientRect(hWnd, &rc))
             {
-                int width = rc.right - rc.left;
-                int height = rc.bottom - rc.top;
 
-                int left = (width - CELL_SIZE * 3) / 2;
-                int top = (height - CELL_SIZE * 3) / 2;
-
-                int right = left + CELL_SIZE * 3;
-                int bottom = top + CELL_SIZE * 3;
-
-                Rectangle(hdc, left, top, right, bottom);
+                Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
             }
             // TODO: Add any drawing code that uses hdc here...
             EndPaint(hWnd, &ps);
