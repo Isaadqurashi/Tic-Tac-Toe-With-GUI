@@ -143,6 +143,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    case WM_GETMINMAXINFO:
+    {
+        MINMAXINFO* pMinMax = (MINMAXINFO*)lParam;
+
+        pMinMax->ptMinTrackSize.x = CELL_SIZE * 5; //it stops us to minimize the window as much that will hide our board(rectangle) on x-axis
+        pMinMax->ptMinTrackSize.y = CELL_SIZE * 5; //it stops us to minimize the window as much that will hide our board(rectangle) on y-axis
+
+    }
+    break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
