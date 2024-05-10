@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "Tic Tac Toe With GUI.h"
 
-#define MAX_LOADSTRING 100
+#define MAX_LOADSTRING 200
 
 // Global Variables:
 HINSTANCE hInst;                                // current instance
