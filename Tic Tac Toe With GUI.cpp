@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "Tic Tac Toe With GUI.h"
+#include <windowsx.h>
 
 #define MAX_LOADSTRING 100
 
@@ -121,7 +122,35 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - post a quit message and return
 //
 //
-const int CELL_SIZE = 100; //gloabl variable for our game
+const int CELL_SIZE = 100; //global variable for our game
+
+int GetCellNumberFromPoint(HWND hwnd, int x, int y)
+{   
+    POINT pt{ x , y };
+    RECT rc;
+
+    RECT rc;
+    if (GetGameBoardRect(hwnd, &rc))
+    {
+        if(PtInRect(&rc, pt))
+        {
+            //user clicked inside the game board
+            //Normalize (0 to 3*CELL_SIZE = 300)      
+            x = pt.x - rc.left;
+            y = pt.y - rc.top;
+
+            int column = x / CELL_SIZE;
+            int row = y / CELL_SIZE;
+
+            //convert to index(0 - 8)
+            return column + row * 3;
+
+
+        }
+    }
+    return -1;  //oustide game board or failure 
+}
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -150,6 +179,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         pMinMax->ptMinTrackSize.x = CELL_SIZE * 5; //it stops us to minimize the window as much that will hide our board(rectangle) on x-axis
         pMinMax->ptMinTrackSize.y = CELL_SIZE * 5; //it stops us to minimize the window as much that will hide our board(rectangle) on y-axis
 
+    }
+    break;
+    case WM_LBUTTONDOWN:
+    {
+        int xPos = GET_X_LPARAM(lParam);
+        int yPos = GET_Y_LPARAM(lParam);
+
+        int index = GetCellNumberFromPoint(hWnd, xPos, yPos);
+        
+        HDC hdc = GetDC(hWnd);
+        if (NULL != hdc) 
+        {
+            WCHAR temp[100];
+            wsprintf(temp, L"Index = %d", index);
+            TextOut(hdc, xPos, yPos, temp, lstrlen(temp));
+            ReleaseDC(hWnd, hdc);
+        }
     }
     break;
     case WM_PAINT:
