@@ -146,6 +146,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
+            Rectangle(hdc, 0, 0, 100, 100);
             // TODO: Add any drawing code that uses hdc here...
             EndPaint(hWnd, &ps);
         }
