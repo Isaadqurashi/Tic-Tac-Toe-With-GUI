@@ -146,7 +146,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            Rectangle(hdc, 0, 0, 100, 100);
+            RECT rc; // rectangle structure
+            if (GetClientRect(hWnd, &rc))
+            {
+                int width = rc.right - rc.left;
+                int height = rc.top - rc.bottom;
+                const int CELL_SIZE = 100;
+
+                int left = (width - CELL_SIZE * 3) / 2;
+                int top = (height - CELL_SIZE * 3) / 2;
+
+                int right = left + CELL_SIZE * 3;
+                int bottom = top + CELL_SIZE * 3;
+
+                Rectangle(hdc, left, top, right, bottom);
+            }
             // TODO: Add any drawing code that uses hdc here...
             EndPaint(hWnd, &ps);
         }
