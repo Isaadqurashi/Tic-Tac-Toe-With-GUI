@@ -150,7 +150,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             if (GetClientRect(hWnd, &rc))
             {
                 int width = rc.right - rc.left;
-                int height = rc.top - rc.bottom;
+                int height = rc.bottom - rc.top;
                 const int CELL_SIZE = 100;
 
                 int left = (width - CELL_SIZE * 3) / 2;
