@@ -121,6 +121,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - post a quit message and return
 //
 //
+const int CELL_SIZE = 100; //gloabl variable for our game
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -142,6 +143,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    case WM_GETMINMAXINFO:
+       {
+        MINMAXINFO* pMinMax = (MINMAXINFO*)lParam;
+
+        pMinMax->ptMinTrackSize.x = CELL_SIZE * 5; //it stops us to minimize the window as much that will hide our board(rectangle) on x-axis
+        pMinMax->ptMinTrackSize.y = CELL_SIZE * 5; //it stops us to minimize the window as much that will hide our board(rectangle) on y-axis
+
+       }
+       break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
@@ -151,7 +161,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             {
                 int width = rc.right - rc.left;
                 int height = rc.bottom - rc.top;
-                const int CELL_SIZE = 100;
 
                 int left = (width - CELL_SIZE * 3) / 2;
                 int top = (height - CELL_SIZE * 3) / 2;
