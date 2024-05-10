@@ -123,7 +123,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 const int CELL_SIZE = 100; //global variable for our game
-bool GetGameBoardRect(HWND hwnd, RECT* pRect)
+BOOL GetGameBoardRect(HWND hwnd, RECT* pRect)
 {
     RECT rc; // rectangle structure
     if (GetClientRect(hwnd, &rc))
@@ -141,6 +141,13 @@ bool GetGameBoardRect(HWND hwnd, RECT* pRect)
     SetRectEmpty(pRect);
     return FALSE;
 }
+
+void DrawLine(HDC hdc, int x1, int y1, int x2, int y2)
+{
+    MoveToEx(hdc, x1,y1, NULL);
+    LineTo(hdc, x2, y2);
+}
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -177,14 +184,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             RECT rc; // rectangle structure
 
-            bool GetGameBoardRect(HWND hwnd, RECT * pRect);
-
-            if (GetClientRect(hWnd, &rc))
+            if (GetGameBoardRect(hWnd, &rc))
             {
-
-                Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
+               FillRect(hdc, &rc, (HBRUSH)GetStockObject(WHITE_BRUSH)); // it removes that black line around the rectangle
+               //Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom); //It adds black edge lines around the Rextangle
             }
             // TODO: Add any drawing code that uses hdc here...
+
+            for (int i = 0; i < 4; ++i)
+            {
+                //Draw vertical lines
+                DrawLine(hdc, rc.left + CELL_SIZE *i, rc.top, rc.left + CELL_SIZE *i, rc.bottom);
+                //Draw Horizontal lines
+                DrawLine(hdc, rc.left, rc.top + CELL_SIZE *i, rc.right, rc.top + CELL_SIZE *i);
+            }
+
             EndPaint(hWnd, &ps);
         }
         break;
