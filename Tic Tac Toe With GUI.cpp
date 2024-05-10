@@ -76,7 +76,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hInstance      = hInstance;
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_TICTACTOEWITHGUI));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
+   //wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
+    wcex.hbrBackground = (HBRUSH)(GetStockObject(GRAY_BRUSH));
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_TICTACTOEWITHGUI);
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
@@ -149,6 +150,30 @@ int GetCellNumberFromPoint(HWND hwnd, int x, int y)
         }
     }
     return -1;  //oustide game board or failure 
+  
+BOOL GetGameBoardRect(HWND hwnd, RECT* pRect)
+{
+    RECT rc; // rectangle structure
+    if (GetClientRect(hwnd, &rc))
+    {
+        int width = rc.right - rc.left;
+        int height = rc.bottom - rc.top;
+
+        pRect->left = (width - CELL_SIZE * 3) / 2;
+        pRect->top = (height - CELL_SIZE * 3) / 2;
+
+        pRect->right = pRect->left + CELL_SIZE * 3;
+        pRect->bottom = pRect->top + CELL_SIZE * 3;
+        return TRUE;
+    }
+    SetRectEmpty(pRect);
+    return FALSE;
+}
+
+void DrawLine(HDC hdc, int x1, int y1, int x2, int y2)
+{
+    MoveToEx(hdc, x1,y1, NULL);
+    LineTo(hdc, x2, y2);
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -203,20 +228,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             RECT rc; // rectangle structure
-            if (GetClientRect(hWnd, &rc))
+
+            if (GetGameBoardRect(hWnd, &rc))
             {
-                int width = rc.right - rc.left;
-                int height = rc.bottom - rc.top;
-
-                int left = (width - CELL_SIZE * 3) / 2;
-                int top = (height - CELL_SIZE * 3) / 2;
-
-                int right = left + CELL_SIZE * 3;
-                int bottom = top + CELL_SIZE * 3;
-
-                Rectangle(hdc, left, top, right, bottom);
+               FillRect(hdc, &rc, (HBRUSH)GetStockObject(WHITE_BRUSH)); // it removes that black line around the rectangle
+               //Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom); //It adds black edge lines around the Rextangle
             }
             // TODO: Add any drawing code that uses hdc here...
+
+            for (int i = 0; i < 4; ++i)
+            {
+                //Draw vertical lines
+                DrawLine(hdc, rc.left + CELL_SIZE *i, rc.top, rc.left + CELL_SIZE *i, rc.bottom);
+                //Draw Horizontal lines
+                DrawLine(hdc, rc.left, rc.top + CELL_SIZE *i, rc.right, rc.top + CELL_SIZE *i);
+            }
+
             EndPaint(hWnd, &ps);
         }
         break;
