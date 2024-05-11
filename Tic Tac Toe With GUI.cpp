@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "Tic Tac Toe With GUI.h"
+#include <Windows.h>
 
 #define MAX_LOADSTRING 100
 
@@ -147,6 +148,30 @@ void DrawLine(HDC hdc, int x1, int y1, int x2, int y2)
     MoveToEx(hdc, x1,y1, NULL);
     LineTo(hdc, x2, y2);
 }
+int GetCellNumberFromPoint(HWND hwnd, int x, int y)
+{
+    POINT pt = { x,y };
+    RECT rc;
+
+    if (GetGameBoardRect(hwnd, &rc))
+    {
+        if (PtInRect(&rc, pt))
+        {
+            //user clicked inside game board
+            //Normalize ( o to 3* CELL_SIZE)
+            x = pt.x - rc.left;
+            y = pt.y - rc.top;
+
+            int column = x / CELL_SIZE;
+            int row = y / CELL_SIZE;
+
+            //convert to index
+            return column + row * 3;
+
+        }
+    }
+    return -1; //outside game board or failure
+}
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -169,6 +194,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+
+    case WM_LBUTTONDOWN:
+        {
+
+        int xPos = GET_X_LPARAM(lParam);
+        int yPos = GET_Y_LPARAM(lParam);
+
+        int index = GetCellNumberFromPoint(hWnd, xPos, yPos);
+        
+        HDC hdc = GetDC(hWnd);
+        if (NULL != hdc)
+        {
+            WCHAR temp[100];
+
+            wsprintf(temp, L"Index = %d", index);
+            TextOut(hdc, xPos, yPos, temp, lstrlen(temp));
+            ReleaseDC(hWnd, hdc);
+        }
+        }
+        break;
+
     case WM_GETMINMAXINFO:
     {
         MINMAXINFO* pMinMax = (MINMAXINFO*)lParam;
