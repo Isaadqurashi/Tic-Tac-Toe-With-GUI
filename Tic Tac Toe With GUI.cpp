@@ -128,7 +128,7 @@ BOOL GetGameBoardRect(HWND hwnd, RECT* pRect)
     RECT rc; // rectangle structure
     if (GetClientRect(hwnd, &rc))
     {
-        // int width = rc.right - rc.left;
+        int width = rc.right - rc.left;
         int height = rc.bottom - rc.top;
 
         pRect->left = (width - CELL_SIZE * 3) / 2;
