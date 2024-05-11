@@ -125,9 +125,15 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_PAINT    - Paint the main window
 //  WM_DESTROY  - post a quit message and return
 //
-//
+//Game constants and Variables
 const int CELL_SIZE = 100; //global variable for our game
+HBRUSH hbr1, hbr2;
+int playerTurn = 1;
+
+
 BOOL GetGameBoardRect(HWND hwnd, RECT* pRect)
+
+
 {
     RECT rc; // rectangle structure
     if (GetClientRect(hwnd, &rc))
@@ -175,11 +181,40 @@ int GetCellNumberFromPoint(HWND hwnd, int x, int y)
     }
     return -1; //outside game board or failure
 }
+BOOL GetCellRect(HWND hWnd, int index, RECT* pRect)
+{
+    RECT rcBoard;
 
+    SetRectEmpty(pRect);
+    if (index < 0 || index > 8)
+        return FALSE;
+
+    if (GetGameBoardRect(hWnd, &rcBoard))
+    {
+        //converting index from 0-8 into x,y pair
+        int y = index / 3; // row num
+        int x = index % 3; //column num
+
+        pRect->left = rcBoard.left + x * CELL_SIZE + 1;
+        pRect->top = rcBoard.top + y * CELL_SIZE + 1;
+        pRect->right = pRect->left + CELL_SIZE - 1;
+        pRect->bottom = pRect->top + CELL_SIZE - 1;
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_CREATE:
+    {
+        hbr1 = CreateSolidBrush(RGB(255, 0, 0));
+        hbr2 = CreateSolidBrush(RGB(0, 0, 255));
+    }
+    break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -209,10 +244,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         HDC hdc = GetDC(hWnd);
         if (NULL != hdc)
         {
-            WCHAR temp[100];
+            //WCHAR temp[100];
 
-            wsprintf(temp, L"Index = %d", index);
-            TextOut(hdc, xPos, yPos, temp, lstrlen(temp));
+           // wsprintf(temp, L"Index = %d", index);
+           // TextOut(hdc, xPos, yPos, temp, lstrlen(temp));
+
+            //Get cell dimensions from its index
+            if (index != -1) 
+            {
+                RECT rcCell;
+                if (GetCellRect(hWnd, index, &rcCell))
+                {
+                    FillRect(hdc, &rcCell, (playerTurn==2) ? hbr2 : hbr1);
+                }
+
+                playerTurn = (playerTurn == 1) ? 2 : 1;
+            }
+
             ReleaseDC(hWnd, hdc);
         }
         }
@@ -252,6 +300,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
     case WM_DESTROY:
+        DeleteObject(hbr1);
+        DeleteObject(hbr2);
         PostQuitMessage(0);
         break;
     default:
