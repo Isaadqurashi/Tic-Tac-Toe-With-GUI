@@ -250,6 +250,43 @@ int GetWinner(int wins[3])
     
 }
 
+void ShowTurn(HWND hwnd, HDC hdc)
+{
+    static const WCHAR szTurn1[] = L"Turn: Player 1";
+    static const WCHAR szTurn2[] = L"Turn: Player 2";
+
+    const WCHAR* pszTurnText = NULL;
+    
+    switch (winner)
+    {
+    case 0: // continue to play
+        pszTurnText = (playerTurn == 1) ? szTurn1 : szTurn2;
+    case 1: // Player 1 wins
+        pszTurnText = L"Player 1 is the winner!";
+        break;
+
+    case 2: // Player 2 wins
+        pszTurnText = L"Player 2 is the winner!";
+        break;
+
+    case 3: // It is a draw
+        pszTurnText = L"It's a draw!";
+        break;
+    }
+    RECT rc;
+    
+    if (NULL != pszTurnText && GetClientRect(hwnd, &rc))
+    {
+        rc.top = rc.bottom - 48;
+        FillRect(hdc, &rc, (HBRUSH)GetStockObject(GRAY_BRUSH));
+        SetTextColor(hdc , RGB(255,255,255));
+        SetBkMode(hdc,TRANSPARENT);
+        DrawText(hdc, pszTurnText, lstrlen(pszTurnText), &rc, DT_CENTER);
+
+    }
+
+}
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -266,6 +303,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // Parse the menu selections:
             switch (wmId)
             {
+            case ID_FILE_NEWGAME:
+            {
+               int ret = MessageBox(hWnd, L"Are you sure you want to start a new game?", L"New Game", MB_YESNO | MB_ICONQUESTION);
+               if (IDYES == ret)
+               {
+                   //Reset and start a new game
+                   playerTurn = 1;
+                   winner = 0;
+                   ZeroMemory(gameBoard, sizeof(gameBoard));
+                   //force a paint message
+                   InvalidateRect(hWnd, NULL, TRUE); // post WM_PAINT to windowProc .it gets queued in our message queue
+                   UpdateWindow(hWnd); //forces immediate handling of WM_PAINT
+
+               
+               }
+            }
+            break;
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
@@ -323,9 +377,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                             L"It's a draw!", MB_OK | MB_ICONEXCLAMATION);
                         playerTurn = 0;
                     }
-                    else if(0==winner)
+                    else if (0 == winner)
+                    {
+                        playerTurn = (playerTurn == 1) ? 2 : 1;
+                    }
 
-                    playerTurn = (playerTurn == 1) ? 2 : 1;
+                    //Display turn
+                    ShowTurn(hWnd, hdc);
                 }
 
             }
@@ -352,6 +410,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
             if (GetGameBoardRect(hWnd, &rc))
             {
+                RECT rcClient;
+                //Display player text and turn
+                if (GetClientRect(hWnd, &rcClient))
+                {
+                    const WCHAR szPlayer1 [] = L"Player 1";
+                    const WCHAR szPlayer2 [] = L"Player 2";
+
+                    SetBkColor(hdc, TRANSPARENT);
+                    //Draw Player 1 and Player 2 text
+                    SetTextColor(hdc, RGB(255,255,0));
+                    TextOut(hdc, 16, 16, szPlayer1, ARRAYSIZE(szPlayer1));
+                    SetTextColor(hdc, RGB(0, 0, 255));
+                    TextOut(hdc, rcClient.right - 72, 16, szPlayer2, ARRAYSIZE(szPlayer2));
+
+                    //Display turn
+                    ShowTurn(hWnd, hdc);
+                }
                 FillRect(hdc, &rc, (HBRUSH)GetStockObject(WHITE_BRUSH)); // it removes that black line around the rectangle
                 //Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom); //It adds black edge lines around the Rextangle
 
