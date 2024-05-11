@@ -129,6 +129,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 const int CELL_SIZE = 100; //global variable for our game
 HBRUSH hbr1, hbr2;
 int playerTurn = 1;
+int gameBoard[9] = { 0,0,0,0,0,0,0,0,0 };
 
 
 BOOL GetGameBoardRect(HWND hwnd, RECT* pRect)
@@ -253,12 +254,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             if (index != -1) 
             {
                 RECT rcCell;
-                if (GetCellRect(hWnd, index, &rcCell))
+                if ((0 == gameBoard[index]) && GetCellRect(hWnd, index, &rcCell))
                 {
-                    FillRect(hdc, &rcCell, (playerTurn==2) ? hbr2 : hbr1);
+                    gameBoard[index] = playerTurn;
+
+                    FillRect(hdc, &rcCell, (playerTurn==1) ? hbr1 : hbr2);
+                    playerTurn = (playerTurn == 1) ? 2 : 1;
                 }
 
-                playerTurn = (playerTurn == 1) ? 2 : 1;
             }
 
             ReleaseDC(hWnd, hdc);
@@ -283,17 +286,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
             if (GetGameBoardRect(hWnd, &rc))
             {
-               FillRect(hdc, &rc, (HBRUSH)GetStockObject(WHITE_BRUSH)); // it removes that black line around the rectangle
-               //Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom); //It adds black edge lines around the Rextangle
-            }
-            // TODO: Add any drawing code that uses hdc here...
+                FillRect(hdc, &rc, (HBRUSH)GetStockObject(WHITE_BRUSH)); // it removes that black line around the rectangle
+                //Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom); //It adds black edge lines around the Rextangle
 
-            for (int i = 0; i < 4; ++i)
-            {
-                //Draw vertical lines
-                DrawLine(hdc, rc.left + CELL_SIZE *i, rc.top, rc.left + CELL_SIZE *i, rc.bottom);
-                //Draw Horizontal lines
-                DrawLine(hdc, rc.left, rc.top + CELL_SIZE *i, rc.right, rc.top + CELL_SIZE *i);
+             // TODO: Add any drawing code that uses hdc here...
+
+                for (int i = 0; i < 4; ++i)
+                {
+                    //Draw vertical lines
+                    DrawLine(hdc, rc.left + CELL_SIZE * i, rc.top, rc.left + CELL_SIZE * i, rc.bottom);
+                    //Draw Horizontal lines
+                    DrawLine(hdc, rc.left, rc.top + CELL_SIZE * i, rc.right, rc.top + CELL_SIZE * i);
+                }
+
+                //Draw all occupied cell
+                RECT rcCell;
+
+                for (int i = 0; i < ARRAYSIZE(gameBoard); ++i)
+                {
+                    if ((0!= gameBoard[i]) && GetCellRect(hWnd, i, &rcCell))
+                    {
+                        FillRect(hdc, &rcCell, (gameBoard[i]==2) ? hbr2 : hbr1);
+                    }
+                }
+
             }
 
             EndPaint(hWnd, &ps);
