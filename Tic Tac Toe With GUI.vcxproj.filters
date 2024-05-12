@@ -54,5 +54,11 @@
     <Image Include="C:\Users\Saad Khurshid\Downloads\3933852-emoji-emotion-emotional-face-funny_111637.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\pngwing.com (3).ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\pngwing.com (5).ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
