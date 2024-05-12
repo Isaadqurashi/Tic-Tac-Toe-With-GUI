@@ -260,6 +260,7 @@ void ShowTurn(HWND hwnd, HDC hdc)
     switch (winner)
     {
     case 0: // continue to play
+  
         pszTurnText = (playerTurn == 1) ? szTurn1 : szTurn2;
     case 1: // Player 1 wins
         pszTurnText = L"Player 1 is the winner!";
