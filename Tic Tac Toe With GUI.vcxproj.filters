@@ -60,5 +60,35 @@
     <Image Include="C:\Users\Saad Khurshid\Downloads\pngwing.com (5).ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="c:\users\saad khurshid\downloads\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (1).ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (2).ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (2) (1).ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\saad1-removebg-preview.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\saad1-removebg-preview (1).ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\saad1-removebg-preview (2).ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\pngwing.com (4).ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\shape_circle_o_icon_157465.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\letterx_83737.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

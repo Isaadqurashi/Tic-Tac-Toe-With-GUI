@@ -141,8 +141,18 @@
   <ItemGroup>
     <Image Include="C:\Users\Saad Khurshid\Downloads\3933843-cool-emoji-emotion-emotional-face_111624.ico" />
     <Image Include="C:\Users\Saad Khurshid\Downloads\3933852-emoji-emotion-emotional-face-funny_111637.ico" />
+    <Image Include="c:\users\saad khurshid\downloads\icon1.ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\letterx_83737.ico" />
     <Image Include="C:\Users\Saad Khurshid\Downloads\pngwing.com (3).ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\pngwing.com (4).ico" />
     <Image Include="C:\Users\Saad Khurshid\Downloads\pngwing.com (5).ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\saad1-removebg-preview (1).ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\saad1-removebg-preview (2).ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\saad1-removebg-preview.ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\shape_circle_o_icon_157465.ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (1).ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (2) (1).ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (2).ico" />
     <Image Include="icon1.ico" />
     <Image Include="small.ico" />
     <Image Include="Tic Tac Toe With GUI.ico" />
