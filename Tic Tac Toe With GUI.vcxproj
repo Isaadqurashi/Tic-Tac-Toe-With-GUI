@@ -154,6 +154,8 @@
     <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (2) (1).ico" />
     <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (2).ico" />
     <Image Include="icon1.ico" />
+    <Image Include="lettwr-X.ico" />
+    <Image Include="shape-circle-O.ico" />
     <Image Include="small.ico" />
     <Image Include="Tic Tac Toe With GUI.ico" />
   </ItemGroup>

@@ -90,5 +90,11 @@
     <Image Include="C:\Users\Saad Khurshid\Downloads\letterx_83737.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="shape-circle-O.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="lettwr-X.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
