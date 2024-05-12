@@ -139,8 +139,10 @@
     <ResourceCompile Include="Tic Tac Toe With GUI.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\1553084_letter_o_red_alphabet_letters_icon.ico" />
     <Image Include="C:\Users\Saad Khurshid\Downloads\3933843-cool-emoji-emotion-emotional-face_111624.ico" />
     <Image Include="C:\Users\Saad Khurshid\Downloads\3933852-emoji-emotion-emotional-face-funny_111637.ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\Hopstarter-Sleek-Xp-Basic-Ok.256.ico" />
     <Image Include="c:\users\saad khurshid\downloads\icon1.ico" />
     <Image Include="C:\Users\Saad Khurshid\Downloads\letterx_83737.ico" />
     <Image Include="C:\Users\Saad Khurshid\Downloads\pngwing.com (3).ico" />
@@ -154,10 +156,12 @@
     <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (2) (1).ico" />
     <Image Include="C:\Users\Saad Khurshid\Downloads\umer-removebg-preview (2).ico" />
     <Image Include="icon1.ico" />
+    <Image Include="letter-O.ico" />
     <Image Include="lettwr-X.ico" />
     <Image Include="shape-circle-O.ico" />
     <Image Include="small.ico" />
     <Image Include="Tic Tac Toe With GUI.ico" />
+    <Image Include="tick.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

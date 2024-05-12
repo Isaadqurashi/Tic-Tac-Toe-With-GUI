@@ -96,5 +96,17 @@
     <Image Include="lettwr-X.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\Hopstarter-Sleek-Xp-Basic-Ok.256.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\1553084_letter_o_red_alphabet_letters_icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="tick.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="letter-O.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
