@@ -290,8 +290,9 @@ void ShowTurn(HWND hwnd, HDC hdc)
 
 void DrawIconCentered(HDC hdc, RECT* pRect, HICON hIcon)
 {
-    const int ICON_WIDTH = 32;
-    const int ICON_HEIGHT = 32;
+    const int ICON_WIDTH = GetSystemMetrics(SM_CXICON);
+    const int ICON_HEIGHT = GetSystemMetrics(SM_CYICON);
+
     if (NULL != pRect)
     {
         int left = pRect->left + ((pRect->right - pRect->left) - 32) / 2;
@@ -300,7 +301,19 @@ void DrawIconCentered(HDC hdc, RECT* pRect, HICON hIcon)
     }
 }
 
+void ShowWinner(HWND hWnd, HDC hdc)
+{
+    RECT rcWin;
 
+    for (int i = 0; i < 3; ++i)
+    {
+        if (GetCellRect(hWnd, wins[i], &rcWin))
+        {
+            FillRect(hdc, &rcWin, (playerTurn == 1) ? hbr1 : hbr2);
+            DrawIconCentered(hdc, &rcWin, (winner == 1) ? hIcon1 : hIcon2);
+        }
+    }
+}
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -382,6 +395,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                     winner = GetWinner(wins);
                     if (winner == 1 || winner == 2)
                     {
+
+                        ShowWinner(hWnd, hdc);
+                     
                         //we have a winner
                         MessageBox(hWnd,
                             (winner == 1) ? L"Player 1 is the winner!" : L"Player 2 is the winner!",
@@ -445,8 +461,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                     SetTextColor(hdc, RGB(255, 0, 0)); // red color
                     SetBkMode(hdc, TRANSPARENT);
                     TextOut(hdc, 16, 16, szPlayer1, ARRAYSIZE(szPlayer1));
+                    DrawIcon(hdc, 24, 40,hIcon1);
+
                     SetTextColor(hdc, RGB(0, 0, 255)); // blue color
                     TextOut(hdc, rcClient.right - 72, 16, szPlayer2, ARRAYSIZE(szPlayer2));
+                    DrawIcon(hdc, rcClient.right - 64, 40, hIcon2);
 
                     //Display turn
                     ShowTurn(hWnd, hdc);
@@ -476,6 +495,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                     }
                 }
 
+                if (winner == 1 || winner == 2)
+                {
+                      //show winenr
+                      ShowWinner(hWnd, hdc);
+                }
             }
 
             EndPaint(hWnd, &ps);
