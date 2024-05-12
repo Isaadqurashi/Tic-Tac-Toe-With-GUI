@@ -258,10 +258,10 @@ void ShowTurn(HWND hwnd, HDC hdc)
 
     const WCHAR* pszTurnText = NULL;
     
+    pszTurnText = (playerTurn == 1) ? szTurn1 : szTurn2;
     switch (winner)
     {
-    case 0: // continue to play
-        pszTurnText = (playerTurn == 1) ? szTurn1 : szTurn2;
+    //case 0: // continue to play
     case 1: // Player 1 wins
         pszTurnText = L"Player 1 is the winner!";
         break;
