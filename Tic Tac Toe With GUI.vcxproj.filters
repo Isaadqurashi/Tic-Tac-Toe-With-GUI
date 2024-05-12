@@ -45,5 +45,14 @@
     <Image Include="Tic Tac Toe With GUI.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\3933843-cool-emoji-emotion-emotional-face_111624.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\3933852-emoji-emotion-emotional-face-funny_111637.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

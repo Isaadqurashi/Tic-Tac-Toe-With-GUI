@@ -139,6 +139,9 @@
     <ResourceCompile Include="Tic Tac Toe With GUI.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\3933843-cool-emoji-emotion-emotional-face_111624.ico" />
+    <Image Include="C:\Users\Saad Khurshid\Downloads\3933852-emoji-emotion-emotional-face-funny_111637.ico" />
+    <Image Include="icon1.ico" />
     <Image Include="small.ico" />
     <Image Include="Tic Tac Toe With GUI.ico" />
   </ItemGroup>
