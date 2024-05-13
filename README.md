@@ -46,5 +46,3 @@ Contributions to the game are welcome. If you have any suggestions or bug fixes,
 
 This game was created using the Windows API and various online resources for learning GUI programming in C++.
 
-Citations:
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/16425995/ac43832f-2153-49d2-9a30-b2a5a27fece7/paste.txt
