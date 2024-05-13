@@ -1,5 +1,5 @@
 # Tic Tac Toe With GUI
-# Second semester Final Project with GUI
+# Second semester Project with GUI
 
 **Tic Tac Toe with GUI**
 =====================
