@@ -1,4 +1,6 @@
-# Second semester Project with GUI
+# Second semester Project with GUI  
+by https://github.com/umer6016
+and https://github.com/Isaadqurashi
 
 **Tic Tac Toe with GUI**
 =====================
