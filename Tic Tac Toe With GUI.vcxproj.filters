@@ -108,5 +108,17 @@
     <Image Include="letter-O.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\Saad Khurshid\Downloads\Tic Tac Toe With GUI.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Icon2.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="logo.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
