@@ -9,6 +9,8 @@ and https://github.com/Isaadqurashi
 -----------
 
 This repository contains the source code for a Tic Tac Toe game implemented with a graphical user interface (GUI) using the Windows API. The game allows two players to play against each other, with the option to start a new game at any time.
+![Screenshot 2024-05-17 190603](https://github.com/user-attachments/assets/25df7100-4a8a-4aeb-9767-8d01097e1cef)
+
 
 **Features**
 -----------
