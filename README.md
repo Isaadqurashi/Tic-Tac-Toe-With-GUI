@@ -50,7 +50,7 @@ To build and run the game, you will need to compile the provided C++ code using 
 **License**
 ---------
 
-This software is provided under the MIT License. See the `LICENSE` file for details.
+This software is provided under the MIT License. See the https://github.com/Isaadqurashi/Tic-Tac-Toe-With-GUI?tab=MIT-1-ov-file# file for details.
 
 **Contributing**
 ------------
